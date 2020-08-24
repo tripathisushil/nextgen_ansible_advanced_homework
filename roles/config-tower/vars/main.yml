@@ -4,6 +4,8 @@ org_name: Default
 scm_branch: master 
 scm_url: "{{ github_repo }}"
 proj_name: "00_Homework Assignment"
+proj_scm_type: git
+proj_scm_url: https://github.com/miteshget/nextgen_ansible_advanced_homework.git
 user_name: admin 
 password: r3dh4t1!
 ssh_cred_name: "Connect_to_workstation"
