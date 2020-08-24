@@ -9,6 +9,17 @@
     backup: yes
 
 - name: enable repos
- 
-- name: install base tools and packages
+  template:
+    src: repos_template.j2
+    dest: /etc/yum.repos.d/open_three-tier-app.repo
+    mode: 0644
 
+- name: enable repos
+  shell: yum-config-manager --enable epel.repo 
+
+- name: install base tools and packages
+  yum:
+    name:
+      - httpd
+      - haproxy
+    state: latest
