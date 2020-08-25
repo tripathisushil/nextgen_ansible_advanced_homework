@@ -1,0 +1,20 @@
+---
+
+# tasks file for osp.servers
+# 
+- name: Create new server instances and attaches them a network and passes metadata to the instance
+  os_server:
+    cloud: 
+    name: 
+    image: 
+    key_name: 
+    flavor: 
+    security_groups: 
+    delete_fip: 
+    wait: 
+    nics:
+    meta: 
+    userdata: 
+  with_subelements:
+  tags:
+  vars:
