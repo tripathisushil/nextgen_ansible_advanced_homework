@@ -1,4 +1,4 @@
-- hosts: localhost 
+- hosts: workstation 
   gather_facts: false
   tasks:
   - name: Fetch Instance Info
