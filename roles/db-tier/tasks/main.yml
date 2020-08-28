@@ -1,5 +1,5 @@
 ---
-- name: Install Postgres packages to DB Server
+- name: Install Postgres packages
   package:
     name: "{{ __package }}"
     state: present
@@ -20,7 +20,7 @@
   command: "{{ postgres_10_bin_path }}/postgresql-10-setup initdb"
   notify: restart_postgres
 
-- name: Setup Postgres for remote password authentication
+- name: Setup Postgres for remote password auth
   template:
     src: ../templates/pg_hba.conf.j2
     dest: "{{ postgres_10_data_dir }}/pg_hba.conf"
@@ -33,14 +33,15 @@
     insertafter: "#listen_addresses"
   notify: restart_postgres
 
-- name: Setup Postgres as start as service.
+- name: Setup Postgres as started and enabled on boot.
   service:
     name: "{{ postgres_service }}"
     state: "{{ postgres_service_state | default('started') }}"
     enabled: "{{ postgres_service_enabled | default(true) }}"
 
-- name: Configure Postgres resources, user, database etc.
+- name: Configure Postgres resources, user, database etc 
   block:
+
     - name: Setup Postgres database(s) 
       postgresql_db:
         name: "{{ __database.name }}"
@@ -61,5 +62,6 @@
       loop_control:
         loop_var: __user
       no_log: "{{ postgres_user_no_log_state | default(false) }}" 
+
 
   become_user: "{{ postgres_user }}"
