@@ -1,2 +1,50 @@
 ---
+- name: Install Tomcat package(s)
+  package:
+    name: "{{ app_server_packages }}"
+    state: present
+  tags: 
+    - apps
+    - tomcat
 
+- name: Copy jar file into tomcat bin
+  copy:
+    src: /usr/share/java/tomcat/extras/tomcat-juli.jar
+    dest: /usr/share/tomcat/bin/tomcat-juli.jar
+    remote_src: yes
+  tags: 
+    - apps
+    - tomcat
+
+- name: Enable Tomcat at boot
+  service:
+    name: tomcat
+    enabled: yes
+  tags: 
+    - apps
+    - tomcat
+
+- name: Create Tomcat content directory
+  file:
+    path: "{{ tomcat_web_root }}"
+    state: directory
+  tags: 
+    - apps
+    - tomcat
+
+- name: Copy static landing page- index.html to tomcat webapps/ansible/index.html
+  template:
+    src: templates/index.html.j2
+    dest: /usr/share/tomcat/webapps/ROOT/index.html
+    mode: 0644
+  tags: 
+    - apps
+    - tomcat
+    
+- name: Start Tomcat Server
+  service:
+    name: "{{ app_server_service }}"
+    state: started
+  tags: 
+    - apps
+    - tomcat
