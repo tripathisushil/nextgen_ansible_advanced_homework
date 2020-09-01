@@ -14,9 +14,9 @@
     name: "{{ item }}"
     state: present
   loop: 
-    - "{{ postgres_rhel7_rep }}"
     - "{{ postgres_packages }}"
     - "{{ postgres_library }}"
+    - "{{ postgres_rhel7_rep }}"
 
 - name: Check if Postgres initialized
   stat:
