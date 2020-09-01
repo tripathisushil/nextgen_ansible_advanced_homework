@@ -14,7 +14,7 @@
     name: "{{ item }}"
     state: present
   loop: 
-    - "{{ postgres_rhel7_repo }}"
+    - "{{ postgres_rhel7_rep }}"
     - "{{ postgres_packages }}"
     - "{{ postgres_library }}"
 
